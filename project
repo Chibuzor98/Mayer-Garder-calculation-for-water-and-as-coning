@@ -1,0 +1,119 @@
+#A project calculating  water and gas coning in vertical wells using Meyer-Gander critical rate correlation
+print("in this Project, Meyer-Ganders method for calculating water and gas conng in vertical well is used")
+user_name= input("enter your name here : ")
+#print a welcome note for the user
+print("welcome,"+ user_name)
+#let the user choose the coning to calculate for i.e water or gas
+user_input = input("do you want to calculate for water or gas coning? : ").lower()
+#Print a valid command,if user inputs water coning
+if user_input == "water coning":
+    #print welcome message for user
+    print("welcome " + user_name + ", you have chosen a valid command")
+    #A message telling you the next step
+    print("now that you have chosen to calculate water coning,please input the values of the following parameters")
+    #message telling you to input the value for oil density
+    #lb/ft**3 is pounds per feet cube
+    Po=eval(input("enter value for the density of oil in lb/ft**3 : "))
+    # message telling you to input the value for water density
+    Pw=eval(input("enter value for the density of water in lb/ft**3 : "))
+    # message telling you to input the value for drainage radius
+    #ft is feet
+    Re=eval(input("enter value for the drainage radius in ft : "))
+    # message telling you to input the value for wellbore radius
+    Rw=eval(input("enter value for the wellbore radius in ft : "))
+    # message telling you to input the value for effective oil permeability
+    Ko=eval(input("enter value for the effective oil permeability : "))
+    # message telling you to input the value for oil viscosity
+    Uo=eval(input("enter value for the oil viscosity : "))
+    # message telling you to input the value for oil formation volume factor
+    Bo=eval(input("enter value for the oil formation volume factor : "))
+    # message telling you to input the value for oil column thickness
+    h=eval(input("enter value for the oil column thickness in ft : "))
+    # message telling you to input the value for the perforated interval
+    hp=eval(input("enter value for the perforated interval in ft : "))
+    #after inputing the parameters, you have to know the formula you are working with
+    critical_oil_rate_in_water_coning_system_Qoc =(" 0.0000246*(Pw - Po) / ln(Re / Rw) * (Ko / Uo * Bo) * (h * h - hp * hp)")
+    #importing the math module to be able to use the natural logarithm function
+    import math
+    #dividing the formula into different sections to get accurate values
+    #stage 1 section involves natural logarithm
+    stage1=math.log(Re/Rw)
+    #stage 2 section involves water and oil densities
+    stage2=Pw-Po
+    #stage 3 section involves mathematical computation of stage 1 and stage 2 i.e stage2/stage1
+    stage3=stage2/stage1
+    #multiplication between viscosity and formation volume factor
+    stage4 = Uo*Bo
+    #stage 5 is the computation of oil relative permeability
+    stage5= Ko
+    #stage 6 is the mathmatical computation between stage 5 and stage 4
+    stage6= stage5/stage4
+    #squaring the oil column thickness
+    stage7 = h*h
+    #squaring the perforated interval
+    stage8= hp*hp
+    #mathematical computation between tage 7 and stage 8
+    stage9= stage7 - stage8
+    #mathematical computation of the critical oil rate in water coning system
+    critical_oil_rate_in_water_coning_system_Qoc= 0.0000246*stage3*stage6*stage9
+    #printing the value of critical oil rate in water coning system in STB/day
+    #STB/day is stock tank barrel per day
+    print("critical_oil_rate_in_water_coning_system_Qoc = ",critical_oil_rate_in_water_coning_system_Qoc,"STB/day")
+    #if user input gas coning,print a valid command
+elif user_input== "gas coning":
+    # print welcome message for user
+    print("welcome " + user_name + ", you have chosen a valid command")
+    # A message telling you the next step
+    print("now that you have chosen to calculate gas coning,please input the values of the following parameters")
+    # message telling you to input the value for oil density
+    Po = eval(input("enter value for the density of oil : "))
+    # message telling you to input the value for gas density
+    Pg = eval(input("enter value for the density of gas : "))
+    # message telling you to input the value for drainage radius
+    Re = eval(input("enter value for the drainage radius : "))
+    # message telling you to input the value for wellbore radius
+    Rw = eval(input("enter value for the wellbore radius : "))
+    # message telling you to input the value for effective oil permeability
+    Ko = eval(input("enter value for the effective oil permeability : "))
+    # message telling you to input the value for oil viscosity
+    Uo = eval(input("enter value for the oil viscosity : "))
+    # message telling you to input the value for oil formation volume factor
+    Bo = eval(input("enter value for the oil formation volume factor : "))
+    # message telling you to input the value for oil column thickness
+    h = eval(input("enter value for the oil column thickness : "))
+    # message telling you to input the value for the distance of the gas-oil ratio at the top of the reservoir
+    Dt = eval(input("enter value for the distance of the gas-oil ratio at the top of the reservoir : "))
+    # after inputing the parameters, you have to know the formula you are working with
+    critical_oil_rate_in_water_coning_system_Qoc = (" 0.0000246*(Po - Pg) / ln(Re / Rw) * (Ko / Uo * Bo) * (h * h - (h -Dt)**2)")
+    #importing the math module to be able to use the natural logarithm function
+    import math
+    # dividing the formula into different sections to get accurate values
+    # stage 10 section involves natural logarithm
+    stage10 = math.log(Re/Rw)
+    #stage 11 involves the oil and gas dendities
+    stage11 = Po-Pg
+    #mathematical computation of stage 10 and 11
+    stage12 = stage11/stage10
+    #stage 13 involves oil vicosity and oil formation volume factor
+    stage13 = Uo * Bo
+    #oil effective permeability
+    stage14 = Ko
+    #mathematical computation of stage 13 and 14
+    stage15 = stage14/stage13
+    #squaring the column thickness
+    stage16 = h * h
+    #subtracting the distance of the gas oil ratio at the top of the reservoir from the column thickness and squaring the result
+    stage17 = (h-Dt)**2
+    #mathematical computation of stage 16 and 17
+    stage18 = stage16 - stage17
+    # mathematical computation of the critical oil rate in gas coning system
+    critical_oil_rate_in_gas_coning_system_Qoc = 0.0000246 * stage12 * stage15 * stage18
+    # printing the value of critical oil rate in gas coning system in STB/day
+    # STB/day is stock tank barrel per day
+    print("critical_oil_rate_in_gas_coning_system_Qoc = ",critical_oil_rate_in_gas_coning_system_Qoc,"STB/day")
+
+    #print invalid command if user inputs otherwise
+else:
+    print("INVALID COMMAND!!!")
+
+
